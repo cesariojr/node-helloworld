@@ -1,362 +1,228 @@
-bluemix-hello-node
-================================================================================
+# IBM Talk'n' Labs | DEVOPS
+
+- [IBM Talk'n' Labs | DEVOPS](#ibm-talkn-labs--devops)
+  - [Para te ajudar](#para-te-ajudar)
+  - [Introdução](#introdu%c3%a7%c3%a3o)
+  - [Pré-requisitos](#pr%c3%a9-requisitos)
+  - [1 - Criando uma toolchain](#1---criando-uma-toolchain)
+  - [2 - Alterando sua aplicação](#2---alterando-sua-aplica%c3%a7%c3%a3o)
+  - [3 - Entendendo o Delivery Pipeline](#3---entendendo-o-delivery-pipeline)
+  - [6 - Deletar o projeto](#6---deletar-o-projeto)
+  - [Material de apoio](#material-de-apoio)
+  - [Troubleshooting](#troubleshooting)
+  - [License](#license)
+
+## Para te ajudar
+* [Troubleshooting](#troubleshooting)
+## Introdução
+Verificar com o Zé Maria
+Uma toolchain é uma coleção de ferramentas que ajudam no desenvolvimento, deploy e tarefas operacionais. Neste Lab, vamos criar uma toolchain a partir de um template para subir uma aplicação em Cloud Foundry. Este template possui um conjunto de ferramentas integradas e um codigo simples de um 'Hello World' em NodeJS. Esta toolchain é pre configurada para ocntinuous delivery, source control, issue tracking e edição de codigo online. 
+
+<!-- O Banco do Brasil, maior banco da América Latina, com destaque em segmentos como agronegócio, infraestrutura, micro e pequenas empresas.
+O seu maior propósito é estar próximo das pessoas e ajudar a preservar o que é importante para seus clientes, acionistas, funcionários e toda a sociedade.
+Por esta razão, pensando no pequeno e médio agricultor, que muitas vezes não tem acesso, desconhece ou não tem capacidade financeira para contratar soluções robustas que os auxiliem na gestão e monitoramento de seus processos produtivos, o Banco do Brasil quer desenvolver solução de baixo custo, para que estes proprietários através do controle de temperatura e umidade do solo, possam planejar melhor sistemas de irrigação baseado no tipo do produto, além de sistema de reconhecimento de pragas e qualidade do plantio através de processamento de imagens capturadas com drones. -->
+## Pré-requisitos
+
+Você deverá cumprir os seguintes itens:
+
+- Ter uma conta na IBM Cloud
+- Ter uma conta no [GitHub](https://github.com/) ou criar uma nova;
+
+
+## 1 - Criando uma toolchain
+1 - Abra o portal da [IBM Cloud](https://cloud.ibm.com)<br>
+
+2 - Faça o login em sua conta<br>
+3 - No canto superior esquerdo, clique no menu de navegação e clique em devops.<br>
+ <div align="center">
+    <img width="750" src="assets/homecloud.PNG" />
+    <p>Imagem 3: Start a Project</p>
+</div>
+4 - Na tela de criação de toolchain, clique em Create a Toolchain. <br>
+ <div align="center">
+    <img width="750" src="assets/toolchains.PNG" />
+    <p>Imagem 3: Start a Project</p>
+</div>
+5 - Como podemos ver, podemos criar a nossa toolchain do zero, ou utilizar algum dos templates, como kubernetes e Cloud Foundry. Selecione Develop Cloud Foundry APP.
+<div align="center">
+    <img width="750" src="assets/create-toolchain.PNG" />
+    <p>Imagem 3: Start a Project</p>
+</div>
+6 - Dê um nome a sua toolchain, selecione uma região e um resource group.
+ <div align="center">
+    <img width="750" src="assets/creation-1.PNG" />
+    <p>Imagem 3: Start a Project</p>
+</div>
+7 - Em Git Repos and Issue Tracking, dê um nome ao seu repositorio.
+ <div align="center">
+    <img width="750" src="assets/git.PNG" />
+    <p>Imagem 3: Start a Project</p>
+</div>
+8 - Clique em `Delivery Pipeline` , entao dê um nome para seu aplicativo.
+
+9 - Em API Key, clique em Create, para gerar uma nova API, e espere os campos seguintes carregarem.
+ <div align="center">
+    <img width="750" src="assets/pipe.PNG" />
+    <p>Imagem 3: Start a Project</p>
+</div>
+9 - Feito isso, no canto superior direito da tela, clique em Create. Você será redirecionado para o Dashboard da sua Toolchain. Nesta página, temos 4 ferramentas: Issues, Git, Delivery Pipeline e Eclipse.
+O processo de deploy da sua aplicação já está sendo executado. Podemos visualiza - lo clicando na ferramenta Delivery Pipeline.<br>
+
+O Delivery Pipeline automatiza o Continuous Deployment de um projeto. Nele, podemos criar nossa esteira com uma sequencia de estágios e rodar tarefas como builds, testes e deployments. Neste exemplo, nosso pipeline possui apenas 2 tarefas: Build e Deploy.
+10 - Para visualizar a aplicação que acabamos de criar, aguarde até que apareça `Stage Passed` em Deply, então, clique em View Console, onde irá te redirecionar para o dashboard da aplicação no Cloud Foundry.<br>
+11 - Clique em Visit App URL.
+<br>
+<br>
+<br>
+
+
+
+
+## 2 - Alterando sua aplicação
+<!-- Primeiramente, você deverá criar um novo repositório no GitHub. Abra sua conta no GitHub e clique em `Start Project`. Dê um nome para seu repositório e selecione a opção `Private`, para evitar que sua solução seja copiada. Por fim, clique em Create repository. -->
+A toochain que criamos está integrada com o git, ou seja, quando uma alteração for realizada no repositório, o processo de deploy será executado automáticamente e a sua aplicação será atualizada.
+Para testar este processo, volte para o dashboard da toolchain. <br> <br>
+1 - primeiramente, vamos visualizar o Git que foi criado. Em code, clique em Git. Este é um Git próprio da IBM Cloud que é criado automáticamente com a nossa toolchain. Abrindo o arquivo manifest.yml, podemos ver as configurações necessárias para a nossa aplicação no Cloud Foundry.
+<br><br>
+2 - Agora, vamos editar nosso codigo. Para isso, nossa toolchain conta com o Eclipse orion Web IDE, que permite alterar os códigos sem precisar de uma IDE Local. Abra esta ferramenta. <br>
+
+3 - Abra a pasta public, depois, abra o arquivo index.html. Altere onde está escrito Hello World para uma frase de sua preferência. <br>
+4 - No canto superior esquerdo, clique em File > Save.<br>
+5 - Agora, precisamos validar nossa alteração no repositório para que a aplicação seja atualizada. Na aba a esquerda, clique no segundo icone. Ao carregar, podemos ver que a alteração já foi reconhecida, então, basta digitarmos uma mensagem e clicarmos em commit.<br>
+6 - Em outgoing, poderemos ver a alteração realizada. Clique em push e aguarde o processo ser sucedido.<br>
+7 - Feito isso, podemos fechar o editor e voltar para nossa toolchain. Clicando novmaente no Delivery Pipeline, podemos ver os processos em execução novamente. Ao fim das tarefas, abra novamente a aplicação e veja o resultado da alteração.
+
+CONTINUA
+ <div align="center">
+    <img width="750" src="assets/main-git.PNG" />
+    <p>Imagem 3: Start a Project</p>
+</div>
+<div align="center">
+    <img width="750" src="assets/creating-git.PNG" />
+    <p>Imagem 4: Criação do repositório</p>
+</div>
+Agora, você deverá importar o código deste repositório para o seu. Para isso, clique em Import Code e cole a URL do repositório do desafio 9. Clique em Begin Import e aguarde o processo ser concluído. Quando concluído, volte para seu repositório e veja seu código.
+
+<div align="center">
+    <img width="750" src="assets/new-repo.PNG" />
+    <p>Imagem 5: Novo repositório do gitHub</p>
+</div>
+<div align="center">
+    <img width="750" src="assets/import.PNG" />
+    <p>Imagem 6: Criação do repositório</p>
+</div>
+
+## 3 - Entendendo o Delivery Pipeline
+O Openshift é uma plataforma Open Source desenvolvida pela Red Hat utilizada para a orquestração de containers baseada em Kubernetes. Em outras palavras,é uma plataforma que te permite fazer o deploy de suas imagens sem se preocupar com infraestrutura. Atualmente, esta ferramenta também está presente na IBM Cloud.
 
-A "Hello World" server in node.js sample for Bluemix.
+Para este desafio, será necessário subir sua página  no OpenShift na IBM Cloud. Para isso,abra o portal da IBM Cloud e troque sua conta para 1960796 - IBM PoC - Maratona Behind the Code.
+<div align="center">
+    <img width="750" src="assets/novoprint.jpeg" />
+    <p>Imagem 7: Selecionando a conta</p>
+</div>
 
-This repo contains a complete sample of a node.js program that you can deploy
-on IBM's [Bluemix](https://bluemix.net/) PaaS, which is based on
-the [Cloud Foundry open source project](http://cloudfoundry.org/).
+Após selecionada, o dashboard será atualizado, e o recurso "Cluster de Kubernetes" irá aparecer. Clique em `Cluster de Kuernetes` e então, selecione o `d9`.
+ <div align="center">
+    <img width="750" src="assets/nova-conta.PNG" />
+    <p>Imagem 8: Dashboard atualizado. </p>
+</div>
 
-Before jumping into the code, make sure you have an IBM ID, by
-registering at the
-[IBM ID registration](https://www.ibm.com/account/profile/us?page=reg)
-page.  You will need the IBM ID to login to Bluemix from the command line.
+ <div align="center">
+    <img width="750" src="assets/clusters-do-kubernetes.PNG" />
+    <p>Imagem 9: OpenShift d9</p>
+</div>
 
-You will also need to install the `cf` command-line tool, available
-here:
 
-* <https://github.com/cloudfoundry/cli/releases>
+Você será direcionado para o painel do OpenShift na IBM Cloud. Nesta tela você pode obter algumas informações sobre seu cluster. Para prosseguir o processo, clique em `Console da Web do OpenShift` para ser direcionado ao Web Console do OpenShift.
+Você também pode abrir o console pelo seguinte link: https://red.ht/desafiofinal
+ <div align="center">
+    <img width="750" src="assets/dash.PNG" />
+    <p>Imagem 10: Painel do OpenShift na IBM Cloud</p>
+</div>
 
-At the time of this writing, the most recent version is `cf v6.1.1`.
+ <div align="center">
+    <img width="750" src="assets/main-openshift.PNG" />
+    <p>Imagem 11: Console do OpenSift</p>
+</div>
 
+Agora, podemos um projeto. Clique em Create Project.  Escolha um nome de sua preferência para o projeto e clique em Create
 
+ <div align="center">
+    <img width="750" src="assets/create_project.PNG" />
+    <p>Imagem 12: Criação do projeto</p>
+</div>
 
-install the code for the sample program
---------------------------------------------------------------------------------
+ <div align="center">
+    <img width="750" src="assets/overview1.PNG" />
+    <p>Imagem 13: Overview do projeto</p>
+</div>
 
-Click the magical button below to deploy the app.
+Na página de Overview, clique em Browse Catalog para continuar o deploy da aplicação. Você será direcionado para um catalogo. Procure pela opção "Python" (apenas Python) e selecione esta opção.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
+ <div align="center">
+    <img width="750" src="assets/python.PNG" />
+    <p>Imagem 14: Selecionando o modelo Python</p>
+</div>
 
-or....
+Quando selecionada, clique em next na etapa de `Information`. Em `Configuration` dê o nome da sua aplicação. `Este nome deverá ser seu id (OBS: Seu novo ID)`. Em Git Repository, coloque a URL do seu repositório criado após dar o Fork neste repositório. IMPORTANTE: Antes de clicar em next, clique em `Advanced Options`. 
 
-From a command/shell terminal
-* `cd` into the parent directory you want to install the project in
-* `git clone` the project into a child directory
-* `cd` into that child directory
-* run `npm install` to install dependencies
+<div align="center">
+    <img width="750" src="assets/configuration.PNG" />
+    <p>Imagem 15: Nomeando a aplicação</p>
+</div>
 
-For example:
+<div align="center">
+    <img width="750" src="assets/advanced_options.PNG" />
+    <p>Imagem 16: Advanced Options</p>
+</div>
 
-    $ cd Projects
-    $ git clone https://github.com/IBM-Bluemix/bluemix-hello-node
+Em Advanced Options, clique em `Create New Secret` e coloque seu usuário e senha do github. O Secret basicamente serve para guardar informações confidênciais em seu container.  Dê um nome ao seu secret e clique em create. 
 
-        ... git output here ...
+<div align="center">
+    <img width="750" src="assets/new-secret.PNG" />
+    <p>Imagem 17: Criando um secret</p>
+</div>
 
-    $ cd bluemix-hello-node
+Para finalizar o processo, clique em Create. Após criado, clique novamente em Overview e procure pela aplicação que você criou. Espere até que fique azul ao lado de `pod`. Quando isso acontecer, clique na URL ao lado do nome da aplicação e você será direcionado para a página onde terá instruções sobre as próximas etapas necessárias.
 
-    $ npm install
+<div align="center">
+    <img width="750" src="assets/overview2.PNG" />
+    <p>Imagem 18: Overview 2</p>
+</div>
 
-        ... npm output here ...
 
+## 6 - Deletar o projeto
+**OBS: Esta etapa deve ser seguida apenas se você quiser deletar e criar novamente seu projeto.** 
+Caso tenha cometido algum erro e deseje refazer seu deploy, delete seu projeto e crie novamente o projeto e a aplicação. Para deletar seu projeto, clique no logo no canto superior esquerdo do seu console, selecione os três pontos ao lado do projeto que deseja deletar e clique em `Delete Project`. Digite o nome do projeto na caixa de diálogo e confirme, e ele será marcado para ser deletado. Após isso, basta seguir novamente o processo de criação de projeto.
+## Material de apoio
+- [Creating a Red Hat OpenShift on IBM Cloud cluster](https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_tutorial)
+- [Watson IOT Plataform - Python](https://ibm-watson-iot.github.io/iot-python/application/)
+-  [Keras](https://ibm-watson-iot.github.io/iot-python/application/)
+-  [Tensor Flow](https://www.tensorflow.org/guide/)
+## Troubleshooting
 
-run locally
---------------------------------------------------------------------------------
+1. O Console da Web do OpenShift não abriu ao clicar na opção? 
 
-After installing, run the server using
+    Resposta: **Abra pelo seguinte link: https://red.ht/desafiofinal**
 
-    npm start
+    <br>
+2. Errei ao criar minha aplicação, o que devo fazer?
+    Resposta: **Neste caso, [delete seu projeto](#6---deletar-o-projeto) e crie um novamente.**
 
-This should print the following to the console.
 
-    bluemix-hello-node: server starting on http://localhost:8080
 
-If instead, you get something like the following, someone is already
-using the default port of 8080:
+## License
 
-    Server running at http://127.0.0.1:8080/
+Copyright 2019 Maratona Behind the Code
 
-    events.js:72
-        throw er; // Unhandled 'error' event
-                  ^
-    Error: listen EADDRINUSE
-        at errnoException (net.js:901:11)
-        at Server._listen2 (net.js:1039:14)
-        at listen (net.js:1061:10)
-        at Server.listen (net.js:1127:5)
-        ...
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-Once the server is running, test it by visiting the following URL in your
-browser:
+       http://www.apache.org/licenses/LICENSE-2.0
 
-    http://localhost:8080/
-
-When you visit the above url the content will be Hello World
-
-    Hello World!!!
-
-
-Next, test it by visiting the following URL in your
-browser:
-
-    http://localhost:8080/hello
-
-When you visit the above url the content will be Hello World
-
-    Hello World
-
-
-
-logging into Bluemix
---------------------------------------------------------------------------------
-
-Now that you have your IBM ID and the `cf` command-line tool (see above),
-you can log into Bluemix and the deploy your app.
-
-First you should tell the `cf` command which environment you want to operate
-with, with the `cf api` command:
-
-    cf api https://api.ng.bluemix.net
-
-You should see the following output:
-
-    Setting api endpoint to https://api.ng.bluemix.net...
-    OK
-
-    API endpoint: https://api.ng.bluemix.net (API version: 2.0.0)
-    Not logged in. Use 'cf login' to log in.
-    No org or space targeted, use 'cf target -o ORG -s SPACE'
-
-Note that as long as you only ever interact with the Bluemix environment with the
-`cf` command (and not any other CloudFoundry environments), you won't have to
-run the `cf api` command again.
-
-To login to Bluemix, use the following command:
-
-    cf login
-
-You will be prompted for your IBM ID userid and password, as in the following
-example:
-
-    $ cf login
-    API endpoint: https://api.ng.bluemix.net
-
-    Username> [enter your IBM ID here]
-
-    Password> [enter your IBM ID password here]
-    Authenticating...
-    OK
-
-You will then be prompted to select your 'org' and 'space', just select the defaults,
-which should be your IBM ID userid and `dev`, respectively.
-
-When complete, you should see the following:
-
-    API endpoint: https://api.ng.bluemix.net (API version: 2.0.0)
-    User:         [your IBM ID]
-    Org:          [your IBM ID]
-    Space:        dev
-
-
-
-deploying to Bluemix
---------------------------------------------------------------------------------
-
-You can deploy an application to Bluemix with the `cf push` command.
-
-Use the following command to have the application deployed to Bluemix:
-
-    cf push
-
-`cf push` will read the default manifest file `manifest.yml` for some
-default values of options related to your application.
-
-Note that in the documentation below, the string `${random-word}` is a
-place-holder for a random string that Bluemix will create, so that you
-will have a unique hostname running within Bluemix.
-
-After running the `cf push` command above, you should see the following output:
-
-    Creating app hello-node in org <my-IBM-id> / space dev as <my-IBM-id>...
-    OK
-
-    Using route hello-node-${random-word}.ng.bluemix.net
-    Binding hello-node-${random-word}.ng.bluemix.net to hello-node...
-    OK
-
-    Uploading hello-node...
-    Uploading from: /Users/pmuellr/Projects/bluemix/bluemix-hello-node
-    24.9K, 5 files
-    OK
-
-    Starting app hello-node in org <my-IBM-id> / space dev as <my-IBM-id>...
-    OK
-    -----> Downloaded app package (12K)
-    -----> ibm-buildpack-nodejs 2013-01-16
-    -----> Resolving engine versions
-           WARNING: No version of Node.js specified in package.json, see:
-           https://devcenter.heroku.com/articles/nodejs-versions
-           Using Node.js version: 0.10.21
-           Using npm version: 1.2.30
-    -----> Fetching IBM SDK for Node.js binaries
-    -----> Vendoring node into slug
-    -----> Installing dependencies with npm
-           npm WARN package.json bluemix-hello-node@ No repository field.
-           npm http GET https://registry.npmjs.org/express
-    ... remaining npm messages elided ...
-    -----> Building runtime environment
-    + '[' -e /tmp/staged/app/ACE_EMPTY_RUNTIME ']'
-    + echo no
-    + exit 1
-    -----> Uploading droplet (23M)
-
-    1 of 1 instances running
-
-    App started
-
-    Showing health and status for app hello-node in org <my-IBM-id> / space dev as <my-IBM-id>...
-    OK
-
-    requested state: started
-    instances: 1/1
-    usage: 128M x 1 instances
-    urls: hello-node-${random-word}.ng.bluemix.net
-
-         state     since                    cpu    memory         disk
-    #0   running   2014-02-24 11:01:17 AM   0.0%   6.6M of 128M   34.1M of 1G
-
-At this point, your application is running and you can visit it on the urls
-
-    http://hello-node-${random-word}.ng.bluemix.net
-    https://hello-node${random-word}.ng.bluemix.net
-
-If you'd like to continue to play with the server by changing the code, use
-the following command when you are ready to push the new version to Bluemix:
-
-    cf push
-
-You can stop the server at any time, by using the following command:
-
-    cf stop hello-node
-
-and then start it later, by using the following command:
-
-    cf start hello-node
-
-When you're ready to delete the server, use the following command:
-
-    cf delete hello-node
-
-For more information on the basics of pushing apps, see the Cloud Foundry docs:
-
-* *[Prepare to Deploy an Application](http://docs.cloudfoundry.org/devguide/deploy-apps/prepare-to-deploy.html)*
-* *[Deploy Applications](http://docs.cloudfoundry.org/devguide/deploy-apps/)*
-
-privacy notice
---------------------------------------------------------------------------------
-
-This web application includes code to track deployments to [IBM Bluemix](https://www.bluemix.net/) and other Cloud Foundry platforms. The following information is sent to a [Deployment Tracker](https://github.com/cloudant-labs/deployment-tracker) service on each deployment:
-
-* Application Name (`application_name`)
-* Space ID (`space_id`)
-* Application Version (`application_version`)
-* Application URIs (`application_uris`)
-
-This data is collected from the `VCAP_APPLICATION` environment variable in IBM Bluemix and other Cloud Foundry platforms. This data is used by IBM to track metrics around deployments of sample applications to IBM Bluemix to measure the usefulness of our examples, so that we can continuously improve the content we offer to you. Only deployments of sample applications that include code to ping the Deployment Tracker service will be tracked.
-
-### disabling deployment tracking
-
-Deployment tracking can be disabled by removing the `require("cf-deployment-tracker-client").track();` line from the end of the `server.js` file.
-
-files in this repository
---------------------------------------------------------------------------------
-
-`server.js`
-
-The server written with node.js.  This server was adapted from the
-*[example provided in the node docs](http://nodejs.org/api/synopsis.html)*.
-
-The difference is that the port, binding host, and url are determined
-via the [`cfenv` package](https://www.npmjs.org/package/cfenv).  This will
-return appropriate values both when running in Cloud Foundry and when running
-locally.
-
----
-
-`.cfignore`
-
-List of file patterns that should **NOT** be uploaded to Bluemix.
-
-See the Cloud Foundry doc
-*[Prepare to Deploy an Application](http://docs.cloudfoundry.org/devguide/deploy-apps/prepare-to-deploy.html)*
-for more information.
-
-In this case, the contents of the file are:
-
-    node_modules
-
-This indicates the node modules you installed with `npm install` will **NOT** be
-uploaded to Bluemix.  When your app is "staged" (ie, built on Bluemix during
-`cf push`), an
-`npm install` will be run there to install the required modules.  By avoiding
-sending your node modules when you push your app, your app will be uploaded
-quicker than
-if you **HAD** sent the modules.  But you can send the modules you have installed
-if you like; just delete the `.cfignore` file.
-
----
-
-`.gitignore`
-
-List of file patterns that should **NOT** be stored in git.  If you aren't using
-git, you don't need this file.  And the contents are personal preference.
-
-See the npm google groups topic
-*['node_modules in git' from FAQ](https://groups.google.com/forum/#!topic/npm-/8SRXhD6uMmk)*
-for discussion.
-
----
-
-`LICENSE`
-
-The open source license for this sample; in this case, it's licensed under
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
-
----
-
-`manifest.yml`
-
-This file contains information that's used when you `cf push` the application.
-
-See the Cloud Foundry doc
-*[Deploying with Application Manifests](http://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)*
-for more information.
-
----
-
-`package.json`
-
-Standard package.json file for node packages.  You will need this file for two
-reasons:
-
-* identify your node package dependencies during `npm install`
-* identify to Bluemix that this directory contains a node.js application
-
-See the npm doc
-*[package.json](https://npmjs.org/doc/json.html)*
-for more information.
-
----
-
-`Procfile`
-
-Used to indicate the command to start the server.
-
-See the Cloud Foundry doc
-*[Tips for Node.js Applications](http://docs.cloudfoundry.org/buildpacks/node/node-tips.html)*
-and the Heroku doc
-*[Process Types and the Procfile](https://devcenter.heroku.com/articles/procfile)*
-for more information.
-
-In this case, the file has a single line:
-
-    web: node server
-
-This indicates that the command `node server` should be run when the app is
-started.
-
----
-
-`README.md`
-
-This file!
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
