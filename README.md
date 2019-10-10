@@ -16,6 +16,7 @@
 * [Troubleshooting](#troubleshooting)
 ## Introdução
 Verificar com o Zé Maria
+Teste update
 Uma toolchain é uma coleção de ferramentas que ajudam no desenvolvimento, deploy e tarefas operacionais. Neste Lab, vamos criar uma toolchain a partir de um template para subir uma aplicação em Cloud Foundry. Este template possui um conjunto de ferramentas integradas e um codigo simples de um 'Hello World' em NodeJS. Esta toolchain é pre configurada para ocntinuous delivery, source control, issue tracking e edição de codigo online. 
 
 <!-- O Banco do Brasil, maior banco da América Latina, com destaque em segmentos como agronegócio, infraestrutura, micro e pequenas empresas.
